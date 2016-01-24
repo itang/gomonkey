@@ -18,6 +18,10 @@ func welcome(c *echo.Context) error {
 	return c.String(http.StatusOK, fmt.Sprintf("[%v]Hello, World! %v\n", count, time.Now()))
 }
 
+func ping(c *echo.Context) error {
+	return c.JSON(http.StatusOK, "pong")
+}
+
 func main() {
 	//runtime.GOMAXPROCS(runtime.NumCPU())
 	e := echo.New()
@@ -26,6 +30,7 @@ func main() {
 	e.Use(nw.Recover())
 
 	e.Get("/", welcome)
+	e.Get("/ping", ping)
 
 	//// Start server
 	//e.Run(":1323")
