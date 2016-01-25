@@ -34,3 +34,12 @@ namespace :info do
     sh 'xdg-open https://github.com/facebookgo/grace'
   end
 end
+
+namespace :deploy do
+  desc 'hsj'
+  task :hsj do
+    sh 'go build'
+    sh 'scp gomonkey itang@haoshuju.net:gomonkey/'
+    sh 'rm gomonkey'
+  end
+end

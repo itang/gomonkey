@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 	//"runtime"
+	"log"
 	"time"
 
 	"github.com/facebookgo/grace/gracehttp"
@@ -11,15 +12,16 @@ import (
 	nw "github.com/labstack/echo/middleware"
 )
 
-var count = 0
+func okJSON(c *echo.Context, value interface{}) error {
+	return c.JSON(http.StatusOK, value)
+}
 
 func welcome(c *echo.Context) error {
-	count++
-	return c.String(http.StatusOK, fmt.Sprintf("[%v]Hello, World! %v\n", count, time.Now()))
+	return c.String(http.StatusOK, fmt.Sprintf("正在用Go重写...... %v\n", time.Now()))
 }
 
 func ping(c *echo.Context) error {
-	return c.JSON(http.StatusOK, "pong")
+	return okJSON(c, "pong")
 }
 
 func main() {
@@ -36,7 +38,7 @@ func main() {
 	//e.Run(":1323")
 
 	// Get the http.Server
-	s := e.Server(":3000")
+	s := e.Server(":8000")
 
 	// HTTP2 is currently enabled by default in echo.New(). To override TLS handshake errors
 	// you will need to override the TLSConfig for the server so it does not attempt to validate
@@ -44,5 +46,5 @@ func main() {
 	s.TLSConfig = nil
 
 	// Serve it like a boss
-	gracehttp.Serve(s)
+	log.Fatal(gracehttp.Serve(s))
 }
