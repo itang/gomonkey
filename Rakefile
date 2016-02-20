@@ -9,6 +9,10 @@ namespace :prepare do
     sh 'go get -u github.com/facebookgo/grace/gracehttp'
   end
 
+  task :glide do
+    sh 'glide install'
+  end
+
   desc 'gems'
   task :gems do
     sh 'gem install guard guard-shell'
