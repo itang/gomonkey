@@ -9,6 +9,7 @@ namespace :prepare do
     sh 'go get -u github.com/facebookgo/grace/gracehttp'
   end
 
+  desc 'glide install'
   task :glide do
     sh 'glide install'
   end
