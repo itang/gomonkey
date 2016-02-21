@@ -9,7 +9,7 @@ import (
 
 	"github.com/facebookgo/grace/gracehttp"
 	"github.com/labstack/echo"
-	nw "github.com/labstack/echo/middleware"
+	mw "github.com/labstack/echo/middleware"
 )
 
 func okJSON(c *echo.Context, value interface{}) error {
@@ -28,8 +28,9 @@ func main() {
 	//runtime.GOMAXPROCS(runtime.NumCPU())
 	e := echo.New()
 
-	e.Use(nw.Logger())
-	e.Use(nw.Recover())
+	e.Use(mw.Logger())
+	e.Use(mw.Recover())
+	e.Use(mw.Gzip())
 
 	e.Get("/", welcome)
 	e.Get("/ping", ping)
